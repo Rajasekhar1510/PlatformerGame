@@ -2,6 +2,7 @@
 using KBCore.Refs;
 using Cinemachine;
 using Unity.PlasticSCM.Editor.WebApi;
+using System;
 
 public class PlayerController: ValidatedMonoBehaviour 
 {
@@ -21,6 +22,8 @@ public class PlayerController: ValidatedMonoBehaviour
     float currentSpeed;
     float velocity;
 
+    static readonly int Speed = Animator.StringToHash("Speed");
+
     /*[Header("Jump Settings")]
     [SerializeField] float jumpForce = 10f;
     [SerializeField] float jumpDuration = 0.5f;
@@ -36,9 +39,18 @@ public class PlayerController: ValidatedMonoBehaviour
         freeLookVCam.OnTargetObjectWarped(transform, transform.position - freeLookVCam.transform.position - Vector3.forward);
     }
 
+    void Start() => input.EnablePlayerActions();
+
+
     private void Update()
     {
-        
+        HandleMovement();
+        UpdateAnimator();
+    }
+
+    void UpdateAnimator()
+    {
+        animator.SetFloat(Speed, currentSpeed);
     }
 
     void HandleMovement()

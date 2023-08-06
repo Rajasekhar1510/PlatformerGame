@@ -18,14 +18,17 @@ public class InputReader : ScriptableObject, IPlayerActions
 
     void OnEnable()
     {
-        if (inputActions != null) 
+        if (inputActions == null) 
         {
             inputActions = new PlayerInputActions();
             inputActions.Player.SetCallbacks(this);
         }
 
-        inputActions.Enable();
+    }
 
+    public void EnablePlayerActions()
+    {
+        inputActions.Enable();
     }
 
     public void OnFire(InputAction.CallbackContext context)
